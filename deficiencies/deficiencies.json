@@ -1,0 +1,42 @@
+{
+  "name" : "deficiencies",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::152334825638:role/Glue-role-df18a02b",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-152334825638-us-east-1/scripts/deficiencies.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-152334825638-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--conf" : "spark.eventLog.rolling.enabled=true --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+    "--enable-glue-datacatalog" : "",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-152334825638-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 480,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "5.1",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1787230516466\":{\"SparkSQL\":{\"Inputs\":[\"node-1787230467216\"],\"Name\":\"SQL Query\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"state\",\"Type\":\"string\"},{\"Name\":\"health_deficiency_count\",\"Type\":\"bigint\"},{\"Name\":\"fire_deficiency_count\",\"Type\":\"bigint\"}]}],\"SqlAliases\":[{\"Alias\":\"myDataSource\",\"From\":\"node-1787230467216\"}],\"SqlQuery\":\"select\\n    state,\\n    SUM(total_number_of_health_deficiencies) as health_deficiency_count,\\n    SUM(total_number_of_fire_safety_deficiencies) as fire_deficiency_count\\nfrom\\n    myDataSource\\nwhere\\n    YEAR(health_survey_date) = 2024\\nGROUP by\\n    state\\n\"}},\"node-1787231220636\":{\"S3DirectTarget\":{\"AutoDataQuality\":{\"EvaluationContext\":\"EvaluateDataQuality_node1787230459002\",\"IsEnabled\":true},\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1787230516466\"],\"Name\":\"Amazon S3\",\"NumberTargetPartitions\":\"1\",\"PartitionKeys\":[],\"Path\":\"s3://health-care-metrics-oseikwadwo/curated/healthdeficiencies/\",\"SchemaChangePolicy\":{\"Database\":\"healthcaremetricsdb\",\"EnableUpdateCatalog\":true,\"Table\":\"healthfiredeficiencies\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}},\"node-1787230467216\":{\"CatalogSource\":{\"Database\":\"healthcaremetricsdb\",\"Name\":\"AWS Glue Data Catalog\",\"PartitionPredicate\":\"\",\"Table\":\"nh_surveysummary_oct2024_csv\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "HealthCare_Metrics",
+    "branch" : "main",
+    "folder" : "deficiencies"
+  }
+}
