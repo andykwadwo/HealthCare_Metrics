@@ -1,0 +1,176 @@
+import io
+import json
+import re
+import sys
+import boto3
+
+from awsglue.utils import getResolvedOptions
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+
+args = getResolvedOptions(
+    sys.argv,
+    [
+        "JOB_NAME",
+        "GOOGLE_SECRET_NAME",
+        "GOOGLE_DRIVE_FOLDER_ID",
+        "S3_BUCKET",
+        "S3_PREFIX",
+    ],
+)
+
+GOOGLE_SECRET_NAME = args["GOOGLE_SECRET_NAME"]
+GOOGLE_DRIVE_FOLDER_ID = args["GOOGLE_DRIVE_FOLDER_ID"]
+S3_BUCKET = args["S3_BUCKET"]
+S3_PREFIX = args["S3_PREFIX"].strip("/") + "/"
+
+DRIVE_SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
+
+EXPORT_MIME_TYPES = {
+    "application/vnd.google-apps.document": (
+        "application/pdf",
+        ".pdf",
+    ),
+    "application/vnd.google-apps.spreadsheet": (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        ".xlsx",
+    ),
+    "application/vnd.google-apps.presentation": (
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        ".pptx",
+    ),
+    "application/vnd.google-apps.drawing": (
+        "application/pdf",
+        ".pdf",
+    ),
+}
+
+
+def safe_name(name):
+    return re.sub(r'[\\/:*?"<>|]+', "_", name)
+
+
+def get_google_credentials():
+    secrets = boto3.client("secretsmanager")
+    response = secrets.get_secret_value(SecretId=GOOGLE_SECRET_NAME)
+    service_account_info = json.loads(response["SecretString"])
+
+    return service_account.Credentials.from_service_account_info(
+        service_account_info,
+        scopes=DRIVE_SCOPES,
+    )
+
+
+def download_drive_file(drive, file_id, mime_type, file_name):
+    output_name = safe_name(file_name)
+
+    if mime_type in EXPORT_MIME_TYPES:
+        export_mime_type, extension = EXPORT_MIME_TYPES[mime_type]
+
+        if not output_name.lower().endswith(extension):
+            output_name += extension
+
+        request = drive.files().export_media(
+            fileId=file_id,
+            mimeType=export_mime_type,
+        )
+        content_type = export_mime_type
+    else:
+        request = drive.files().get_media(fileId=file_id)
+        content_type = mime_type or "application/octet-stream"
+
+    file_buffer = io.BytesIO()
+    downloader = MediaIoBaseDownload(file_buffer, request)
+
+    completed = False
+    while not completed:
+        _, completed = downloader.next_chunk()
+
+    file_buffer.seek(0)
+    return file_buffer, output_name, content_type
+
+
+def copy_folder_to_s3(drive, s3, folder_id, prefix):
+    page_token = None
+
+    while True:
+        response = drive.files().list(
+            q=f"'{folder_id}' in parents and trashed = false",
+            spaces="drive",
+            fields="nextPageToken, files(id,name,mimeType,modifiedTime)",
+            pageToken=page_token,
+            pageSize=1000,
+            supportsAllDrives=True,
+            includeItemsFromAllDrives=True,
+        ).execute()
+
+        for item in response.get("files", []):
+            file_id = item["id"]
+            file_name = item["name"]
+            mime_type = item["mimeType"]
+
+            if mime_type == "application/vnd.google-apps.folder":
+                folder_prefix = f"{prefix}{safe_name(file_name)}/"
+                print(f"Processing folder: {folder_prefix}")
+
+                copy_folder_to_s3(
+                    drive=drive,
+                    s3=s3,
+                    folder_id=file_id,
+                    prefix=folder_prefix,
+                )
+                continue
+
+            try:
+                file_buffer, output_name, content_type = download_drive_file(
+                    drive=drive,
+                    file_id=file_id,
+                    mime_type=mime_type,
+                    file_name=file_name,
+                )
+
+                s3_key = f"{prefix}{output_name}"
+
+                s3.upload_fileobj(
+                    Fileobj=file_buffer,
+                    Bucket=S3_BUCKET,
+                    Key=s3_key,
+                    ExtraArgs={
+                        "ContentType": content_type,
+                        "Metadata": {
+                            "google-drive-file-id": file_id,
+                            "google-drive-modified-time": item.get(
+                                "modifiedTime", ""
+                            ),
+                        },
+                    },
+                )
+
+                print(f"Uploaded s3://{S3_BUCKET}/{s3_key}")
+
+            except Exception as error:
+                print(f"Failed to upload {file_name} ({file_id}): {error}")
+
+        page_token = response.get("nextPageToken")
+        if not page_token:
+            break
+
+
+credentials = get_google_credentials()
+
+drive = build(
+    "drive",
+    "v3",
+    credentials=credentials,
+    cache_discovery=False,
+)
+
+s3 = boto3.client("s3")
+
+copy_folder_to_s3(
+    drive=drive,
+    s3=s3,
+    folder_id=GOOGLE_DRIVE_FOLDER_ID,
+    prefix=S3_PREFIX,
+)
