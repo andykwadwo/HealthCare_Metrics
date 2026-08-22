@@ -1,0 +1,42 @@
+{
+  "name" : "demojob",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::152334825638:role/Glue-role-df18a02b",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-152334825638-us-east-1/scripts/demojob.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-152334825638-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--conf" : "spark.eventLog.rolling.enabled=true --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+    "--enable-glue-datacatalog" : "",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-152334825638-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 480,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "5.1",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1786968296593\":{\"CatalogSource\":{\"Database\":\"healthcaremetricsdb\",\"Name\":\"AWS Glue Data Catalog\",\"PartitionPredicate\":\"\",\"Table\":\"swing_bed_snf_data_oct2024_csv\"}},\"node-1786968597109\":{\"SparkSQL\":{\"Inputs\":[\"node-1786968296593\"],\"Name\":\"SQL Query\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"city_town\",\"Type\":\"string\"},{\"Name\":\"average_score\",\"Type\":\"double\"}]}],\"SqlAliases\":[{\"Alias\":\"myDataSource\",\"From\":\"node-1786968296593\"}],\"SqlQuery\":\"SELECT\\n    city_town,\\n    coalesce(AVG(score),0) AS average_score\\nFROM\\n    myDataSource\\nGROUP BY\\n    city_town;\\n\"}},\"node-1786968745381\":{\"S3DirectTarget\":{\"AutoDataQuality\":{\"EvaluationContext\":\"EvaluateDataQuality_node1786964455671\",\"IsEnabled\":true},\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1786968597109\"],\"Name\":\"Amazon S3\",\"NumberTargetPartitions\":\"1\",\"PartitionKeys\":[],\"Path\":\"s3://health-care-metrics-oseikwadwo/curated/readmission-rates/\",\"SchemaChangePolicy\":{\"Database\":\"healthcaremetricsdb\",\"EnableUpdateCatalog\":true,\"Table\":\"re-admission\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "HealthCare_Metrics",
+    "branch" : "main",
+    "folder" : "demojob"
+  }
+}
