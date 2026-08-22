@@ -1,0 +1,42 @@
+{
+  "name" : "NurseHours",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::152334825638:role/Glue-role-df18a02b",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-152334825638-us-east-1/scripts/NurseHours.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-152334825638-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--conf" : "spark.eventLog.rolling.enabled=true --conf spark.sql.catalog.glue_catalog.glue.skip-name-validation=true",
+    "--enable-glue-datacatalog" : "",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-152334825638-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 480,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "5.1",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1787153449535\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://health-care-metrics-oseikwadwo/raw_data/cleaned.csv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"Amazon S3\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"provnum\",\"Type\":\"string\"},{\"Name\":\"provname\",\"Type\":\"string\"},{\"Name\":\"city\",\"Type\":\"string\"},{\"Name\":\"state\",\"Type\":\"string\"},{\"Name\":\"county_name\",\"Type\":\"string\"},{\"Name\":\"county_fips\",\"Type\":\"string\"},{\"Name\":\"cy_qtr\",\"Type\":\"string\"},{\"Name\":\"workdate\",\"Type\":\"string\"},{\"Name\":\"mdscensus\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_rn\",\"Type\":\"string\"},{\"Name\":\"hrs_rn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_cna\",\"Type\":\"string\"},{\"Name\":\"hrs_cna_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_cna_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide_ctr\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://health-care-metrics-oseikwadwo/raw_data/cleaned.csv\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"comma\",\"WithHeader\":true}},\"node-1787153485070\":{\"SparkSQL\":{\"Inputs\":[\"node-1787153449535\"],\"Name\":\"SQL Query\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"provnum\",\"Type\":\"string\"},{\"Name\":\"provname\",\"Type\":\"string\"},{\"Name\":\"city\",\"Type\":\"string\"},{\"Name\":\"state\",\"Type\":\"string\"},{\"Name\":\"county_name\",\"Type\":\"string\"},{\"Name\":\"county_fips\",\"Type\":\"string\"},{\"Name\":\"cy_qtr\",\"Type\":\"string\"},{\"Name\":\"workdate\",\"Type\":\"string\"},{\"Name\":\"mdscensus\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rndon_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rnadmin_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_rn\",\"Type\":\"string\"},{\"Name\":\"hrs_rn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_rn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_lpnadmin_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_lpn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_cna\",\"Type\":\"string\"},{\"Name\":\"hrs_cna_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_cna_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_natrn_ctr\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide_emp\",\"Type\":\"string\"},{\"Name\":\"hrs_medaide_ctr\",\"Type\":\"string\"},{\"Name\":\"new_date\",\"Type\":\"string\"},{\"Name\":\"total_hours\",\"Type\":\"double\"}]}],\"SqlAliases\":[{\"Alias\":\"myDataSource\",\"From\":\"node-1787153449535\"}],\"SqlQuery\":\"SELECT *,\\nCONCAT(\\n    SUBSTRING(WorkDate, 1, 4), '-', \\n    SUBSTRING(WorkDate, 5, 2), '-', \\n    SUBSTRING(WorkDate, 7, 2)\\n) AS new_date\\n,\\n(Hrs_RNDON + Hrs_RNDON_emp + Hrs_RNDON_ctr + Hrs_RNadmin + Hrs_RNadmin_emp + Hrs_RNadmin_ctr + Hrs_RN + Hrs_RN_emp + Hrs_RN_ctr + Hrs_LPNadmin + Hrs_LPNadmin_emp + Hrs_LPNadmin_ctr + Hrs_LPN + Hrs_LPN_emp + Hrs_LPN_ctr + Hrs_CNA + Hrs_CNA_emp + Hrs_CNA_ctr) AS total_hours\\n\\nfrom myDataSource\"}},\"node-1787153655817\":{\"Aggregate\":{\"Aggs\":[{\"AggFunc\":\"sum\",\"Column\":[\"total_hours\"]}],\"Groups\":[[\"state\"]],\"Inputs\":[\"node-1787153485070\"],\"Name\":\"Aggregate\"}},\"node-1787153551042\":{\"S3DirectTarget\":{\"AutoDataQuality\":{\"EvaluationContext\":\"EvaluateDataQuality_node1787145871299\",\"IsEnabled\":true},\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1787153655817\"],\"Name\":\"Amazon S3\",\"NumberTargetPartitions\":\"1\",\"PartitionKeys\":[],\"Path\":\"s3://health-care-metrics-oseikwadwo/curated/hours-worked-by-nurses/\",\"SchemaChangePolicy\":{\"Database\":\"healthcaremetricsdb\",\"EnableUpdateCatalog\":true,\"Table\":\"NurseHours\",\"UpdateBehavior\":\"UPDATE_IN_DATABASE\"}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "HealthCare_Metrics",
+    "branch" : "main",
+    "folder" : "NurseHours"
+  }
+}
