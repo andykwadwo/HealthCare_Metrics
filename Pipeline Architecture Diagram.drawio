@@ -1,0 +1,65 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="YPJkGNanK93iNQA1Ta9n">
+    <mxGraphModel dx="1212" dy="736" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-3" parent="1" style="editableCssRules=.*;html=1;shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnY9Imh0dHBzOi8vdmVjdGEuaW8vbmFubyIgd2lkdGg9IjQyNCIgaGVpZ2h0PSI0MjQiIHZpZXdCb3g9IjAgMCA0MjQgNDI0Ij4mI3hhOwk8c3R5bGUgdHlwZT0idGV4dC9jc3MiPiYjeGE7CS5zdDB7ZmlsbDojNDI4NWY0O30mI3hhOwk8L3N0eWxlPiYjeGE7CTxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQgMHY0MjRIMFYwek0yMTIgOTcuODQ2Yy0zNy44ODQgMC03MC4xNjQgMjMuOTktODIuNDc4IDU3LjYwOGgwbC0zLjQwMy4wMDFjLTQyLjYzNCAwLTc3LjE5NiAzNC41NjItNzcuMTk2IDc3LjE5NnMzNC41NjIgNzcuMTk2IDc3LjE5NiA3Ny4xOTZoMCAxNzEuNzYzYzQyLjYzNCAwIDc3LjE5Ni0zNC41NjIgNzcuMTk2LTc3LjE5NnMtMzQuNTYyLTc3LjE5Ni03Ny4xOTYtNzcuMTk2aDBsLTMuNDAzLS4wMDFDMjgyLjE2NCAxMjEuODM3IDI0OS44ODQgOTcuODQ2IDIxMiA5Ny44NDZ6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4mI3hhOzwvc3ZnPg==;" value="" vertex="1">
+          <mxGeometry height="40" width="40" x="30" y="782" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-10" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.glue;fillColor=#F58534;gradientColor=none;" value="" vertex="1">
+          <mxGeometry height="99" width="82.5" x="700" y="739" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-22" edge="1" parent="1" source="wxHKwdbRfEbrpMSoPUVY-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="wxHKwdbRfEbrpMSoPUVY-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-34" edge="1" parent="1" source="wxHKwdbRfEbrpMSoPUVY-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" target="wxHKwdbRfEbrpMSoPUVY-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-11" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.bucket;fillColor=#E05243;gradientColor=none;" value="" vertex="1">
+          <mxGeometry height="61.5" width="60" x="470" y="766" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-19" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="wxHKwdbRfEbrpMSoPUVY-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="279.0000000000002" y="802" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-18" edge="1" parent="1" source="wxHKwdbRfEbrpMSoPUVY-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="802" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-23" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#001DBC;fillColor=#0050ef;align=center;verticalAlign=middle;rounded=0;fontColor=#ffffff;" value="Streamlit" vertex="1">
+          <mxGeometry height="30" width="60" x="425" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="glue" vertex="1">
+          <mxGeometry height="30" width="60" x="722.5" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="S3" vertex="1">
+          <mxGeometry height="30" width="60" x="470" y="838" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="glue" vertex="1">
+          <mxGeometry height="30" width="60" x="240" y="852" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-28" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="google drive" vertex="1">
+          <mxGeometry height="30" width="60" x="20" y="827.5" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-29" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="data will be ingested from google drive using lambda" vertex="1">
+          <mxGeometry height="30" width="200" x="50" y="709" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-30" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="data is saved into an S3 bucket" vertex="1">
+          <mxGeometry height="30" width="150" x="300" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-31" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="glue extracts transforms and loads data back into s3" vertex="1">
+          <mxGeometry height="30" width="180" x="530" y="822" as="geometry" />
+        </mxCell>
+        <mxCell id="wxHKwdbRfEbrpMSoPUVY-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="streamlit will used for the visualization of the tranformed data" vertex="1">
+          <mxGeometry height="30" width="215" x="495" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="qVBUJKGSHRua3BBqoDd6-1" parent="1" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.glue;fillColor=#F58534;gradientColor=none;" value="" vertex="1">
+          <mxGeometry height="99" width="82.5" x="217.5" y="750" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
