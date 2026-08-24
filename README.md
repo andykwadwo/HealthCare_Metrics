@@ -1,7 +1,12 @@
 ﻿# HealthCare_Metrics
 
- Below is a step by process on how the pipeline was designed for the Healthcare Metrics project.
+Below is a step by process on how the pipeline was designed for the Healthcare Metrics project.
 The project uses mostly AWS services.
+
+Glue Jobs
+NurseHours: Glue job for totalhours worked by nurses.
+deficiencies: Glue job for healthcare deficiencies by state.
+demojob: Glue job for readmission rate.
 
 
 
@@ -83,3 +88,5 @@ where
     YEAR(health_survey_date) = 2024
 GROUP by
     state
+
+
