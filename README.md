@@ -3,7 +3,7 @@
 Below is a step by process on how the pipeline was designed for the Healthcare Metrics project.
 The project uses mostly AWS services.
 
-Glue Jobs
+Below are the Glue Jobs that were used in creating metrics Nurse hours by month, Healthcare deficiencies by state and readmission rate by hospitals.
 NurseHours: Glue job for totalhours worked by nurses.
 deficiencies: Glue job for healthcare deficiencies by state.
 demojob: Glue job for readmission rate.
